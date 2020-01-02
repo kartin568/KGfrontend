@@ -3,9 +3,9 @@
     <el-container>
       <!-- 顶部导航栏-->
       <el-header>
-        <div id="logo" style="position:absolute; left:15px; top:3px;">
+        <div id="logo" style="position:absolute; left:30px; top:3px;">
           <img src="./assets/KGLogo.png" />
-          作战文书管理系统
+          <span style="margin-left:10px;font-size:large;font-weight:bold;">作战文书管理系统</span>
         </div>
         <el-row type="flex" justify="end">
           <!-- <el-col id="logo" :span="3">
@@ -13,7 +13,7 @@
             作战文书管理系统
           </el-col> -->
           <el-col style="position:relative;">
-            <MyMenu @changeFlag="change"/>
+            <MyMenu/>
           </el-col>
           <el-col id="user" :span="2">
             <MyDropdown :username="usrName"/>
@@ -38,21 +38,11 @@ export default {
   },
   data(){
     return {
-      usrName:"Admin",
-      flag:true
+      usrName:"Admin"
     }
   },
 
   methods: {
-    change :function (flag){
-      this.flag=flag;
-      console.log(this.$route.path)
-    }
-  },
-
-  mounted() {
-    if(this.$route.path === "/") this.flag = true;
-    else this.flag = false;
   }
 }
 </script>
@@ -124,9 +114,5 @@ header div div ul{
 .el-header{
   background-color: #2C2B31;
   color: white;
-}
-
-header div div ul .is-active{
-  color: green;
 }
 </style>

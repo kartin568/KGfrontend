@@ -4,10 +4,9 @@
     <el-aside width="200px">
       <el-menu
         default-active=""
-        class="el-menu-vertical-demo"
-        background-color="#545c64"
+        background-color="#343643"
         text-color="#fff"
-        active-text-color="#ffd04b"
+        active-text-color="#5775FB"
         :router="true">
         <el-menu-item index="/definelabel">
           <i class="el-icon-menu"></i>
@@ -51,11 +50,7 @@
   }
 
   .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-    height: 100%;
+    background-color: #343643;
   }
 
   .el-main {
@@ -65,4 +60,8 @@
     line-height: 160px;
     height: 100%;
   }
+
+.is-active {
+  background-color: rgba(255,255,255,0.2) !important;
+}
 </style>
