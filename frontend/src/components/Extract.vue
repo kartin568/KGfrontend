@@ -16,7 +16,10 @@
     </el-aside>
     <!--内容块-->
     <el-main>
-
+      <div class="header">
+        知识抽取
+        <el-divider></el-divider>
+      </div>
     </el-main>
   </el-container>
 </template>
@@ -61,5 +64,11 @@
     text-align: center;
     line-height: 160px;
     height: 100%;
+  }
+  .header{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    text-align: left;
   }
 </style>

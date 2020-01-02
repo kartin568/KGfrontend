@@ -3,25 +3,24 @@
     <!-- 左侧导航栏-->
     <el-aside width="200px">
       <el-menu
-        default-active="2"
+        default-active=""
         class="el-menu-vertical-demo"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item index="1">
+        active-text-color="#ffd04b"
+        :router="true">
+        <el-menu-item index="/datalabel/definelabel">
           <i class="el-icon-menu"></i>
-          <span slot="title">模式定义</span>
+          <span slot="title" >模式定义</span>
         </el-menu-item>
-        <el-menu-item index="2" >
+        <el-menu-item index="/datalabel/corpustagging">
           <i class="el-icon-document"></i>
           <span slot="title">语料标注</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
     <!--内容块-->
-    <el-main>
-
-    </el-main>
+    <router-view/>
   </el-container>
 </template>
 
