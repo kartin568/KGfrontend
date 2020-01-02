@@ -2,6 +2,10 @@
   <div id="app">
     <img src="./assets/logo.png">
     <router-view/>
+    <el-container>
+    <el-header>Header</el-header>
+    <el-main>Main</el-main>
+  </el-container>
   </div>
 </template>
 
