@@ -59,7 +59,6 @@
     background-color: #F1F2F6;
     color: #333;
     text-align: center;
-    line-height: 160px;
     height: 100%;
   }
 
