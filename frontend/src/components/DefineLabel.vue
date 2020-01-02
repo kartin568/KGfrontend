@@ -4,7 +4,19 @@
     <el-main>
       <div class="header">
         模式定义
-        <el-divider></el-divider>
+      </div>
+      <el-divider></el-divider>
+      <div class="content">
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+        <div>1</div>
+        
+        
       </div>
     </el-main>
   </el-container>
@@ -30,18 +42,17 @@
     padding: 0;
   }
 
-
   body > .el-container {
     width: 100%;
     height: 100%;
   }
 
   .el-main {
-    background-color: #E9EEF3;
+    background-color: #F1F2F6;
     color: #333;
     text-align: center;
     line-height: 160px;
-    height: 100%;
+    min-height: calc(100% - 60px);
   }
 
 
@@ -50,6 +61,14 @@
     height: 20px;
     line-height: 20px;
     text-align: left;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: large;
   }
-
+  .content{
+    min-height: calc(100% - 88px);
+    background-color: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    border-radius: 4px;
+  }
 </style>

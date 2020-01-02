@@ -41,6 +41,7 @@
     height: 100%;
     margin: 0 auto;
     padding: 0;
+    overflow: hidden;
   }
 
 
@@ -51,10 +52,11 @@
 
   .el-aside {
     background-color: #343643;
+    min-height: calc(100% - 60px);
   }
 
   .el-main {
-    background-color: #E9EEF3;
+    background-color: #F1F2F6;
     color: #333;
     text-align: center;
     line-height: 160px;

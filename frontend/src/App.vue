@@ -48,7 +48,7 @@ export default {
 </script>
 
 <style>
-  html,body,#app,.el-container,#zhanweizhi{
+  html,body,#app,.el-container{
     width: 100%;
     height: 100%;
     margin: 0 auto;
