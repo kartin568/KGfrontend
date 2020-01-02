@@ -1,24 +1,10 @@
 <template>
   <el-container>
-    <!-- 左侧导航栏-->
-    <el-aside width="200px">
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item index="1">
-          <i class="el-icon-menu"></i>
-          <span slot="title">知识校正</span>
-        </el-menu-item>
-      </el-menu>
-    </el-aside>
-    <!--内容块-->
+    <!--内容块 语料标注-->
     <el-main>
       <div class="header">
-        知识校正
-        <el-divider></el-divider>
+          语料标注
+          <el-divider></el-divider>
       </div>
     </el-main>
   </el-container>
@@ -26,7 +12,7 @@
 
 <script>
   export default {
-    name: 'Correct',
+    name: 'CorpusTagging',
     data () {
       return {
       }
@@ -47,14 +33,6 @@
 
   body > .el-container {
     width: 100%;
-    height: 100%;
-  }
-
-  .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
     height: 100%;
   }
 
