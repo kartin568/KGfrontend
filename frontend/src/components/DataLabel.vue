@@ -6,7 +6,7 @@
         default-active=""
         background-color="#343643"
         text-color="#fff"
-        active-text-color="#5775FB"
+        active-text-color="#fff"
         :router="true">
         <el-menu-item index="/definelabel">
           <i class="el-icon-menu"></i>
@@ -63,5 +63,6 @@
 
 .is-active {
   background-color: rgba(255,255,255,0.2) !important;
+  border-right: 4px solid #5775FB !important;
 }
 </style>

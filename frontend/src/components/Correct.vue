@@ -3,11 +3,11 @@
     <!-- 左侧导航栏-->
     <el-aside width="200px">
       <el-menu
-        default-active="2"
+        default-active="1"
         class="el-menu-vertical-demo"
-        background-color="#545c64"
+        background-color="#343643"
         text-color="#fff"
-        active-text-color="#ffd04b">
+        active-text-color="#fff">
         <el-menu-item index="1">
           <i class="el-icon-menu"></i>
           <span slot="title">知识校正</span>
@@ -51,11 +51,7 @@
   }
 
   .el-aside {
-    background-color: #D3DCE6;
-    color: #333;
-    text-align: center;
-    line-height: 200px;
-    height: 100%;
+    background-color: #343643;
   }
 
   .el-main {
@@ -72,4 +68,9 @@
     line-height: 20px;
     text-align: left;
   }
+  
+.is-active {
+  background-color: rgba(255,255,255,0.2) !important;
+  border-right: 4px solid #5775FB !important;
+}
 </style>
