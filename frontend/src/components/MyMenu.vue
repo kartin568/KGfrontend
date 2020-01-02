@@ -9,7 +9,7 @@
       :router="true"
       @select="change"
       style="position:absolute; right:0;">
-      <el-menu-item index="/datalabel">数据标注</el-menu-item>
+      <el-menu-item index="/">数据标注</el-menu-item>
       <el-menu-item index="/extract">知识抽取</el-menu-item>
       <el-menu-item index="/correct">知识校正</el-menu-item>
     </el-menu>

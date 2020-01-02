@@ -9,11 +9,11 @@
         text-color="#fff"
         active-text-color="#ffd04b"
         :router="true">
-        <el-menu-item index="/datalabel/definelabel">
+        <el-menu-item index="/definelabel">
           <i class="el-icon-menu"></i>
           <span slot="title" >模式定义</span>
         </el-menu-item>
-        <el-menu-item index="/datalabel/corpustagging">
+        <el-menu-item index="/corpustagging">
           <i class="el-icon-document"></i>
           <span slot="title">语料标注</span>
         </el-menu-item>

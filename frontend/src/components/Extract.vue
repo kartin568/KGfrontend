@@ -18,6 +18,7 @@
     <el-main>
       <div class="header">
         知识抽取
+        <el-button type="primary" class="headbutton">上传</el-button>
         <el-divider></el-divider>
       </div>
     </el-main>
@@ -65,10 +66,15 @@
     line-height: 160px;
     height: 100%;
   }
+
   .header{
     width: 100%;
     height: 20px;
     line-height: 20px;
     text-align: left;
+  }
+  .headbutton{
+    position: absolute;
+    right: 60px;
   }
 </style>

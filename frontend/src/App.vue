@@ -20,9 +20,6 @@
           </el-col>
         </el-row>
       </el-header>
-      <div id="zhanweizhi" v-if="flag">
-        <DataLabel/>
-      </div>
       <router-view/>
     </el-container>
   </div>

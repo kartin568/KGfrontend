@@ -17,7 +17,7 @@
     <!--内容块-->
     <el-main>
       <div class="header">
-        知识校正
+        文本加工任务
         <el-divider></el-divider>
       </div>
     </el-main>
