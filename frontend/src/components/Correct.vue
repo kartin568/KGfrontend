@@ -10,15 +10,20 @@
         active-text-color="#fff">
         <el-menu-item index="1">
           <i class="el-icon-menu"></i>
-          <span slot="title">文本加工任务</span>
+          <span slot="title">知识校正</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
     <!--内容块-->
     <el-main>
-      <div class="header">
-        模式定义
-      </div>
+      <el-row type="flex" align="middle">
+      <el-col class="header" :span="22">
+        文本加工任务
+      </el-col>
+      <el-col :span="2">
+        <el-button id="save">保存</el-button>
+      </el-col>
+      </el-row>
       <el-divider></el-divider>
       <div class="content">
         <el-table
@@ -38,7 +43,7 @@
             label="操作"
             width="170">
             <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="primary" plain size="small">修改</el-button>
+              <el-button @click="handleClick(scope.row)" class="blueBtn" size="small">修改</el-button>
               <el-button type="danger" plain size="small">删除</el-button>
             </template>
           </el-table-column>
@@ -168,7 +173,6 @@
   }
 
   .header{
-    width: 100%;
     height: 20px;
     line-height: 20px;
     text-align: left;
@@ -185,8 +189,28 @@
     padding:0 0 20px 0;
   }
   
-.is-active {
-  background-color: rgba(255,255,255,0.2) !important;
-  border-right: 4px solid #5775FB !important;
-}
+  .is-active {
+    background-color: rgba(255,255,255,0.2) !important;
+    border-right: 4px solid #5775FB !important;
+  }
+
+  .blueBtn{
+    background-color: #EFF0FF;
+    border: 1px solid #5775FB;
+    color: #5775FB;
+  }
+
+  .blueBtn:hover{
+    background-color: #5775FB;
+    color: #FFFFFF;
+  }
+
+  #save{
+    background-color: #5775FB;
+    border: 1px solid #5775FB;
+    color: #FFFFFF;
+  }
+  #save:hover{
+    background-color: #708BF7;
+  }
 </style>
