@@ -90,7 +90,7 @@
       </div>
     </el-main>
     <!--分析页-->
-    <el-main v-else>
+    <el-main v-show="!isList">
       <!--顶部-->
       <div class="header">
         <i class="el-icon-back" @click="isList=true"></i>
@@ -98,13 +98,20 @@
       </div>
       <el-divider></el-divider>
       <!--中心-->
-      <div class="main" >
+      <div class="main" id="daddy">
+        <div id="graph" style="width: 100%;height:100%;"></div>
       </div>
     </el-main>
   </el-container>
 </template>
 
 <script>
+  let echarts = require('echarts');
+  let myChart
+  window.onresize = function() {
+    myChart.resize();
+  };
+
   export default {
     name: 'Extract',
     data () {
@@ -183,7 +190,6 @@
       }
     },
 
-
     methods: {
       submitUpload() {
         this.$refs.upload.submit();
@@ -203,11 +209,151 @@
       handleAnalysis(row){
         console.log(row);
         this.isList = false;
+        let categories=[
+          {name:'属性A'},
+          {name:'属性B'},
+        ];
+        let option ={
+          // 图的标题
+          title: {
+            text: row.name
+          },
+          // 提示框的配置
+          tooltip: {
+            formatter: function (x) {
+              return x.data.des;
+            }
+          },
+          // 工具箱
+          toolbox: {
+            // 显示工具箱
+            show: true,
+            feature: {
+              mark: {
+                show: true
+              },
+              // 还原
+              restore: {
+                show: true
+              },
+              // 保存为图片
+              saveAsImage: {
+                show: true
+              }
+            }
+          },
+          legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+              return a.name;
+            })
+          }],
+          series: [{
+            type: 'graph', // 类型:关系图
+            layout: 'force', //图的布局，类型为力导图
+            symbolSize: 40, // 调整节点的大小
+            roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [2, 10],
+            edgeLabel: {
+              normal: {
+                textStyle: {
+                  fontSize: 20
+                }
+              }
+            },
+            force: {
+              repulsion: 2500,
+              edgeLength: [10, 50]
+            },
+            draggable: true,
+            lineStyle: {
+              normal: {
+                width: 2,
+                color: '#4b565b',
+              }
+            },
+            edgeLabel: {
+              normal: {
+                show: true,
+                formatter: function (x) {
+                  return x.data.name;
+                }
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                textStyle: {}
+              }
+            },
+            // 数据
+            data: [{
+              name: 'node01',
+              des: 'nodedes01',
+              symbolSize: 70,
+              category: 0,
+            }, {
+              name: 'node02',
+              des: 'nodedes02',
+              symbolSize: 50,
+              category: 1,
+            }, {
+              name: 'node03',
+              des: 'nodedes3',
+              symbolSize: 50,
+              category: 1,
+            }, {
+              name: 'node04',
+              des: 'nodedes04',
+              symbolSize: 50,
+              category: 1,
+            }, {
+              name: 'node05',
+              des: 'nodedes05',
+              symbolSize: 50,
+              category: 1,
+            }],
+            links: [{
+              source: 'node01',
+              target: 'node02',
+              name: 'link01',
+              des: 'link01des'
+            }, {
+              source: 'node01',
+              target: 'node03',
+              name: 'link02',
+              des: 'link02des'
+            }, {
+              source: 'node01',
+              target: 'node04',
+              name: 'link03',
+              des: 'link03des'
+            }, {
+              source: 'node01',
+              target: 'node05',
+              name: 'link04',
+              des: 'link05des'
+            }],
+            categories: categories,
+          }],
+          grid:{
+            top:"10px",
+            bottom:"10px",
+            height:"10px",
+            width:"10px"
+          }
+        }
+
+        myChart= echarts.init(document.getElementById('graph'));
+        // 绘制图表
+        myChart.setOption(option);
       },
       handleExport(){
-
+        //导出图
       },
     },
+
 
     mounted() {
       this.fileCount = this.tableData.length;
@@ -304,7 +450,9 @@
   .clearfix:after {
     clear: both
   }
-  .blueBtn{ 
+
+  /***********按钮样式***********/
+  .blueBtn{
     background-color: #EFF0FF;
     border: 1px solid #5775FB;
     color: #5775FB;
@@ -323,4 +471,6 @@
   .darkBtn:hover{
     background-color: #708BF7;
   }
+
+  /**************图**********/
 </style>
