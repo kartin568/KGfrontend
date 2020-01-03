@@ -15,7 +15,7 @@
       </el-menu>
     </el-aside>
     <!--内容块-->
-    <el-main>
+    <el-main v-if="isList">
       <!--顶部-->
       <div class="header">
         知识抽取
@@ -23,11 +23,11 @@
       </div>
       <el-divider></el-divider>
       <!--中心-->
-      <div id="main">
+      <!--      列表页-->
+      <div class="main" >
         <div class="top-tip">
           数据总量:{{fileCount}}
         </div>
-
         <!-- 上传窗口-->
         <div id="upload" v-if="isUpload">
           <el-card class="box-card">
@@ -35,7 +35,6 @@
               <span>语料上传</span>
               <i class="el-icon-close" style="float: right; padding: 3px 0" @click="isUpload=false"></i>
             </div>
-
             <el-upload
               class="upload-demo"
               drag
@@ -53,13 +52,11 @@
                 Json数据结构为对象数组，对象属性值含有title和text<br>
               </div>
             </el-upload>
-
-
             <el-button size="small"@click="isUpload=false">取消</el-button>
             <el-button style="margin-left: 10px;" size="small" type="primary" @click="submitUpload">上传</el-button>
           </el-card>
         </div>
-
+        <!--文书列表-->
         <el-table
           :data="tableData.slice((curPage - 1) * 10, curPage * 10)"
           :header-cell-style="{background:'#EBEEF7',color:'#606266'}"
@@ -79,17 +76,29 @@
             width="100"
             align="center">
             <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" type="primary" plain size="small">分析</el-button>
+              <el-button @click="handleAnalysis(scope.row)" type="primary" plain size="small">分析</el-button>
             </template>
           </el-table-column>
         </el-table>
-
+        <!-- 分页符-->
         <el-pagination
           background
           layout="prev, pager, next"
           :total="fileCount"
           @current-change="handleCurrentChange">
         </el-pagination>
+      </div>
+    </el-main>
+    <!--分析页-->
+    <el-main v-else>
+      <!--顶部-->
+      <div class="header">
+        <i class="el-icon-back" @click="isList=true"></i>
+        <el-button type="primary" class="headbutton" size="small" @click="handleExport">导出</el-button>
+      </div>
+      <el-divider></el-divider>
+      <!--中心-->
+      <div class="main" >
       </div>
     </el-main>
   </el-container>
@@ -100,6 +109,7 @@
     name: 'Extract',
     data () {
       return {
+        isList:true,
         fileCount:100,
         isUpload:false,
         curPage:1,
@@ -190,6 +200,13 @@
       handleCurrentChange(cpage) {
         this.curPage = cpage;
       },
+      handleAnalysis(row){
+        console.log(row);
+        this.isList = false;
+      },
+      handleExport(){
+
+      },
     },
 
     mounted() {
@@ -244,7 +261,7 @@
     padding-left: 20px;
   }
   /*************内容中心*************/
-  #main{
+  .main{
     line-height: 30px;
     height: 90%;
     width: 100%;
