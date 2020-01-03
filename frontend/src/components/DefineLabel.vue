@@ -42,7 +42,7 @@
                 class="input-new-tag longInput"
                 v-if="relationInputVisible"
                 v-model="newRelationTag"
-                ref="saveTagInput"
+                ref="saveTagInput2"
                 size="small"
                 @keyup.enter.native="relationInputConfirm"
                 @blur="relationInputConfirm"
@@ -123,7 +123,7 @@ import MyEntityTag from './MyEntityTag'
       showRelationInput() {
         this.relationInputVisible = true;
         this.$nextTick(_ => {
-          this.$refs.saveTagInput.$refs.input.focus();
+          this.$refs.saveTagInput2.$refs.input.focus();
         });
       },
       relationInputConfirm() {

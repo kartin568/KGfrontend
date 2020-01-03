@@ -32,7 +32,7 @@
           border>
           <el-table-column
             prop="title"
-            label="标题">
+            label="名称">
           </el-table-column>
           <el-table-column
             prop="date"
