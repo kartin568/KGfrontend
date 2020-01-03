@@ -371,6 +371,13 @@
     margin-top: 40px;
   }
 
+  .el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: #5775FB !important;
+  }
+  .el-pagination.is-background .el-pager li:hover{
+    color: #5775FB !important;
+  }
+
   /***************上传弹窗***********/
   #upload{
     text-align: center;
@@ -417,13 +424,4 @@
     background-color: #708BF7;
   }
 
-  /**************图**********/
-</style>
-<style>
-  .el-pagination.is-background .el-pager li:not(.disabled).active{
-    background-color: #5775FB !important;
-  }
-  .el-pagination.is-background .el-pager li:hover{
-    color: #5775FB !important;
-  }
 </style>
