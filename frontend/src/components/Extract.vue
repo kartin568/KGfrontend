@@ -19,7 +19,7 @@
       <!--顶部-->
       <div class="header">
         知识抽取
-        <el-button type="primary" class="headbutton" size="small" @click="isUpload=true">上传</el-button>
+        <el-button type="primary" class="darkBtn headbutton" size="small" @click="isUpload=true">上传</el-button>
       </div>
       <el-divider></el-divider>
       <!--中心-->
@@ -53,7 +53,7 @@
               </div>
             </el-upload>
             <el-button size="small"@click="isUpload=false">取消</el-button>
-            <el-button style="margin-left: 10px;" size="small" type="primary" @click="submitUpload">上传</el-button>
+            <el-button style="margin-left: 10px;" class="darkBtn" size="small" type="primary" @click="submitUpload">上传</el-button>
           </el-card>
         </div>
         <!--文书列表-->
@@ -76,7 +76,7 @@
             width="100"
             align="center">
             <template slot-scope="scope">
-              <el-button @click="handleAnalysis(scope.row)" type="primary" plain size="small">分析</el-button>
+              <el-button class="blueBtn" @click="handleAnalysis(scope.row)" type="primary" plain size="small">分析</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -304,5 +304,23 @@
   .clearfix:after {
     clear: both
   }
+  .blueBtn{ 
+    background-color: #EFF0FF;
+    border: 1px solid #5775FB;
+    color: #5775FB;
+  }
 
+  .blueBtn:hover{
+    background-color: #5775FB;
+    color: #FFFFFF;
+  }
+
+  .darkBtn{
+    background-color: #5775FB;
+    border: 1px solid #5775FB;
+    color: #FFFFFF;
+  }
+  .darkBtn:hover{
+    background-color: #708BF7;
+  }
 </style>
