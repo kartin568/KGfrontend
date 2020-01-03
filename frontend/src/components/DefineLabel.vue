@@ -189,7 +189,10 @@ import MyEntityTag from './MyEntityTag'
   }
   .title{
     font-weight: bold;
-    padding-top:10px;
+    padding:10px 0 0 10px;
+    justify-content: left;
+    display: flex;
+    align-items: center;
   }
   .el-tag + .el-tag {
     margin-left: 10px;
