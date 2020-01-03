@@ -58,9 +58,9 @@
         </div>
 
         <el-table
-          :data="tableData"
+          :data="tableData.slice((curPage - 1) * 10, curPage * 10)"
           :header-cell-style="{background:'#EBEEF7',color:'#606266'}"
-          height="600"
+          height="626"
           border>
           <el-table-column
             prop="title"
@@ -84,7 +84,8 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="fileCount">
+          :total="fileCount"
+          @current-change="handleCurrentChange">
         </el-pagination>
       </div>
     </el-main>
@@ -98,6 +99,7 @@
       return {
         fileCount:100,
         isUpload:false,
+        curPage:1,
         //上传的文件列表
         fileList: [
           {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'},
@@ -105,6 +107,26 @@
         ],
         //表格数据，文书列表
         tableData: [
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
           {
             date: '2016-05-03',
             title: '上海市普陀区金沙江路 1518 弄',
@@ -159,7 +181,14 @@
       },
       handlePreview(file) {
         console.log(file);
-      }
+      },
+      handleCurrentChange(cpage) {
+        this.curPage = cpage;
+      },
+    },
+
+    mounted() {
+      this.fileCount = this.tableData.length;
     }
   }
 </script>
@@ -219,12 +248,13 @@
   .el-table{
     height: 80%;
     width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   }
   /*分页符*/
   .el-pagination{
     right: 60px;
     height: 10%;
-    float: right;
+    text-align: right;
     margin-top: 40px;
   }
 
