@@ -52,7 +52,7 @@
                 Json数据结构为对象数组，对象属性值含有title和text<br>
               </div>
             </el-upload>
-            <el-button size="small"@click="isUpload=false">取消</el-button>
+            <el-button size="small" @click="isUpload=false">取消</el-button>
             <el-button style="margin-left: 10px;" class="darkBtn" size="small" type="primary" @click="submitUpload">上传</el-button>
           </el-card>
         </div>
@@ -118,68 +118,7 @@
           {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'},
         ],
         //表格数据，文书列表
-        tableData: [
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-        ]
+        tableData: []
       }
     },
 
@@ -210,6 +149,12 @@
     },
 
     mounted() {
+      for(let i = 0; i < 19; i ++){
+        this.tableData.push({
+          date: '2016-05-03',
+          title: '文书'+i
+        })
+      }
       this.fileCount = this.tableData.length;
     }
   }
@@ -253,7 +198,7 @@
   }
   .headbutton{
     float: right;
-    margin-right: 60px;
+    margin-right: 40px;
   }
   .top-tip{
     margin-top: -10px;
@@ -304,13 +249,14 @@
   .clearfix:after {
     clear: both
   }
+  
   .blueBtn{ 
     background-color: #EFF0FF;
     border: 1px solid #5775FB;
     color: #5775FB;
   }
 
-  .blueBtn:hover{
+  .blueBtn:hover,.blueBtn:active, .blueBtn:focus{
     background-color: #5775FB;
     color: #FFFFFF;
   }
@@ -322,5 +268,13 @@
   }
   .darkBtn:hover{
     background-color: #708BF7;
+  }
+</style>
+<style>
+  .el-pagination.is-background .el-pager li:not(.disabled).active{
+    background-color: #5775FB !important;
+  }
+  .el-pagination.is-background .el-pager li:hover{
+    color: #5775FB !important;
   }
 </style>
