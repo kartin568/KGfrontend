@@ -10,7 +10,7 @@
         active-text-color="#fff">
         <el-menu-item index="1">
           <i class="el-icon-menu"></i>
-          <span slot="title">知识校正</span>
+          <span slot="title">文本加工任务</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -21,7 +21,36 @@
       </div>
       <el-divider></el-divider>
       <div class="content">
+        <el-table
+          :data="tableData.slice((curPage - 1) * 10, curPage * 10)"
+          height="626"
+          border>
+          <el-table-column
+            prop="title"
+            label="标题">
+          </el-table-column>
+          <el-table-column
+            prop="date"
+            label="尾实体"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            label="操作"
+            width="170">
+            <template slot-scope="scope">
+              <el-button @click="handleClick(scope.row)" type="primary" plain size="small">修改</el-button>
+              <el-button type="danger" plain size="small">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
+      <el-pagination
+        background
+        layout="total, jumper"
+        :total="fileCount"
+        @current-change="handleCurrentChange"
+        style="margin-top:20px;">
+      </el-pagination>
     </el-main>
   </el-container>
 </template>
@@ -31,7 +60,82 @@
     name: 'Correct',
     data () {
       return {
+        tableData: [
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-04',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-04',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+          {
+            date: '2016-05-03',
+            title: '上海市普陀区金沙江路 1518 弄',
+          },
+        ],
+        curPage:1,
+        fileCount:1000
       }
+    },
+    methods: {
+      handlePreview(file) {
+        console.log(file);
+      },
+      handleCurrentChange(cpage) {
+        this.curPage = cpage;
+      },
+    },
+    mounted() {
+      this.fileCount = this.tableData.length;
     }
   }
 </script>
@@ -74,11 +178,11 @@
   }
 
   .content{
-    min-height: calc(100% - 88px);
+    /* min-height: calc(100% - 88px); */
     background-color: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     border-radius: 4px;
-    padding:15px 20px 0 20px;
+    padding:0 0 20px 0;
   }
   
 .is-active {
