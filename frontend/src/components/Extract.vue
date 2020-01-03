@@ -16,11 +16,13 @@
     </el-aside>
     <!--内容块-->
     <el-main>
+      <!--顶部-->
       <div class="header">
         知识抽取
         <el-button type="primary" class="headbutton" size="small" @click="isUpload=true">上传</el-button>
       </div>
       <el-divider></el-divider>
+      <!--中心-->
       <div id="main">
         <div class="top-tip">
           数据总量:{{fileCount}}
@@ -40,6 +42,7 @@
               action="https://jsonplaceholder.typicode.com/posts/"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
+              :on-change="handleAddFile"
               :file-list="fileList"
               multiple>
               <i class="el-icon-upload"></i>
@@ -103,7 +106,6 @@
         //上传的文件列表
         fileList: [
           {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'},
-          {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}
         ],
         //表格数据，文书列表
         tableData: [
@@ -177,10 +179,13 @@
         this.$refs.upload.submit();
       },
       handleRemove(file, fileList) {
-        console.log(file, fileList);
+        this.fileList = fileList;
       },
       handlePreview(file) {
         console.log(file);
+      },
+      handleAddFile(file,fileList){
+        this.fileList = fileList;
       },
       handleCurrentChange(cpage) {
         this.curPage = cpage;
