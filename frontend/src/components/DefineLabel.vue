@@ -9,66 +9,140 @@
       <div class="content">
         <div id="entitiDefinitions">
           <el-row type="flex" align="center">
-            <el-col :span="3" class="title">实体定义</el-col>
+            <el-col :span="4" class="title">实体定义</el-col>
             <el-col style="line-height:50px;">
               <el-input
                 class="input-new-tag"
-                v-if="inputVisible"
-                v-model="newTag"
+                v-if="entityInputVisible"
+                v-model="newEntityTag"
                 ref="saveTagInput"
                 size="small"
-                @keyup.enter.native="handleInputConfirm"
-                @blur="handleInputConfirm"
+                @keyup.enter.native="entityInputConfirm"
+                @blur="entityInputConfirm"
+                placeholder="请输入实体"
               >
               </el-input>
-              <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
-              <el-tag
-                v-for="(tag, index) in tags"
+              <el-button v-else class="button-new-tag" size="small" @click="showEntityInput">+ New Tag</el-button>
+              <MyEntityTag
+                v-for="(tag, index) in entityTags"
                 :key="index"
-                closable
-                :disable-transitions="false"
-                @close="handleClose(tag)">
+                :entity="tag"
+                v-on:closeEntityTag="entityClose(tag)">
                 {{tag}}
-              </el-tag>
+              </MyEntityTag>
             </el-col>
           </el-row>
         </div>
         <el-divider></el-divider>
-        <div id="relationDefinitions"></div>
+        <div id="relationDefinitions">
+          <el-row type="flex" align="center">
+            <el-col :span="4" class="title">关系定义</el-col>
+            <el-col style="line-height:50px;">
+              <el-input
+                class="input-new-tag longInput"
+                v-if="relationInputVisible"
+                v-model="newRelationTag"
+                ref="saveTagInput"
+                size="small"
+                @keyup.enter.native="relationInputConfirm"
+                @blur="relationInputConfirm"
+                placeholder="请输入关系，格式：关系/定义域/值域"
+              >
+              </el-input>
+              <el-button v-else class="button-new-tag" size="small" @click="showRelationInput">+ New Tag</el-button>
+              <MyRelationTag
+                v-for="(tag, index) in relationTags"
+                :key="index"
+                :relation="tag.relation"
+                :domain="tag.domain"
+                :range="tag.range"
+                v-on:closeRelationTag="relationClose(tag)">
+                {{tag}}
+              </MyRelationTag>
+            </el-col>
+          </el-row>
+        </div>
       </div>
     </el-main>
   </el-container>
 </template>
 
 <script>
+import MyRelationTag from './MyRelationTag'
+import MyEntityTag from './MyEntityTag'
   export default {
     name: 'DefineLabel',
+    components: {
+      MyRelationTag,
+      MyEntityTag
+    },
     data () {
       return {
-        tags: ['标签一', '标签二', '标签三'],
-        inputVisible: false,
-        newTag: ''
+        entityTags: ['标签一', '标签二', '标签三'],
+        entityInputVisible: false,
+        newEntityTag: '',
+        relationTags: [{
+            relation:"test1",
+            domain:"定义域1",
+            range:"值域1"
+          },{
+            relation:"test2",
+            domain:"定义域2",
+            range:"值域2"
+          },{
+            relation:"test3",
+            domain:"定义域3",
+            range:"值域3"
+          }],
+        relationInputVisible: false,
+        newRelationTag: ''
       }
     },
     methods: {
-      handleClose(tag) {
-        this.tags.splice(this.tags.indexOf(tag), 1);
+      entityClose(tag) {
+        this.entityTags.splice(this.entityTags.indexOf(tag), 1);
       },
-
-      showInput() {
-        this.inputVisible = true;
+      showEntityInput() {
+        this.entityInputVisible = true;
         this.$nextTick(_ => {
           this.$refs.saveTagInput.$refs.input.focus();
         });
       },
-
-      handleInputConfirm() {
-        let inputValue = this.newTag;
+      entityInputConfirm() {
+        let inputValue = this.newEntityTag;
         if (inputValue) {
-          this.tags.push(inputValue);
+          this.entityTags.push(inputValue);
         }
-        this.inputVisible = false;
-        this.newTag = '';
+        this.entityInputVisible = false;
+        this.newEntityTag = '';
+      },
+      relationClose(tag) {
+        this.relationTags.splice(this.relationTags.indexOf(tag), 1);
+      },
+
+      showRelationInput() {
+        this.relationInputVisible = true;
+        this.$nextTick(_ => {
+          this.$refs.saveTagInput.$refs.input.focus();
+        });
+      },
+      relationInputConfirm() {
+        let inputValue = this.newRelationTag.split("/");
+        if (inputValue.length===3) {
+          this.relationTags.push({
+            relation:inputValue[0],
+            domain:inputValue[1],
+            range:inputValue[2]
+          });
+        this.relationInputVisible = false;
+        this.newRelationTag = '';
+        }
+        else if(this.newRelationTag !==""){
+          this.$message({
+          message: '输入格式有误！',
+          type: 'warning'
+        });
+        }
       }
     }
   }
@@ -126,24 +200,28 @@
     line-height: 30px;
     padding-top: 0;
     padding-bottom: 0;
+    background-color: #5775FB !important;
+    color:#FFFFFF;
+    width: 100px;
+  }
+  .button-new-tag:hover{
+    color:#FFFFFF !important;
+    background-color: #708BF7 !important;
   }
   .input-new-tag {
-    width: 90px;
+    width:100px;
     margin-left: 10px;
     vertical-align: bottom;
   }
+  .longInput{
+    width:250px !important;
+  }
+
   .el-tag, .button-new-tag:hover{
     background-color: #F1F1FD;
     border:1px solid #E4E7ED;
     color: #5775FB;
   }
 
-  .el-tag .el-tag__close{
-    color: #5775FB !important;
-  }
-
-  .el-tag .el-tag__close:hover{
-    background-color: #5775FB !important;
-  }
   
 </style>
