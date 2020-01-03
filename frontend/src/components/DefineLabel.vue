@@ -185,7 +185,7 @@ import MyEntityTag from './MyEntityTag'
     background-color: #FFF;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     border-radius: 4px;
-    padding:20px;
+    padding:15px 20px 0 20px;
   }
   .title{
     font-weight: bold;

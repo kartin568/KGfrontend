@@ -17,8 +17,10 @@
     <!--内容块-->
     <el-main>
       <div class="header">
-        文本加工任务
-        <el-divider></el-divider>
+        模式定义
+      </div>
+      <el-divider></el-divider>
+      <div class="content">
       </div>
     </el-main>
   </el-container>
@@ -55,11 +57,10 @@
   }
 
   .el-main {
-    background-color: #E9EEF3;
+    background-color: #F1F2F6;
     color: #333;
     text-align: center;
-    line-height: 160px;
-    height: 100%;
+    min-height: calc(100% - 60px);
   }
 
   .header{
@@ -67,6 +68,17 @@
     height: 20px;
     line-height: 20px;
     text-align: left;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: large;
+  }
+
+  .content{
+    min-height: calc(100% - 88px);
+    background-color: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+    border-radius: 4px;
+    padding:15px 20px 0 20px;
   }
   
 .is-active {
