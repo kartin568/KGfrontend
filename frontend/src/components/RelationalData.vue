@@ -22,8 +22,41 @@
       </div>
       <el-divider></el-divider>
       <!--中心-->
-      <!--      列表页-->
+      <!--列表页-->
       <div class="main" >
+        <!--标签选择-->
+        <el-row>
+          <el-col :span="5">
+            <span style="color:#606266">请选择要筛选的条件及范围：</span>
+          </el-col>
+          <el-col :span="5">
+            <el-select v-model="propertyIndex" placeholder="请选择属性" size="small">
+              <el-option
+                v-for="(item, index) in properties"
+                :key="index"
+                :label="item"
+                :value="index">
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="3" :offset="1">
+            <el-input-number v-model="num" :min="minNumber" :max="maxNumber" size="small" label="描述文字"></el-input-number>
+          </el-col>
+          <el-col :span="4" :offset="1">
+            <el-button class="darkBtn" size="small" @click="onSearchClick">筛选</el-button>
+          </el-col>
+        </el-row>
+        <!--标签-->
+        <div style="margin:20px 0;">
+          <span style="color:#606266">筛选条件:</span>
+          <MyPropertyTag
+            v-for="(tag, index) in propertyTags"
+            :key="index"
+            :name="tag.name"
+            :range="tag.range"
+            v-on:closeRelationTag="tagClose(tag)">
+          </MyPropertyTag>
+        </div>
         <!--列表-->
         <el-table
           :data="tableData.slice((curPage - 1) * 10, curPage * 10)"
@@ -53,14 +86,25 @@
 </template>
 
 <script>
+import MyPropertyTag from './MyPropertyTag'
     export default {
-        name: "RelationalData",
+      name: "RelationalData",
+      components:{
+        MyPropertyTag
+      },
       data(){
           return{
             fileCount:0,
             curPage:1,
             //表格数据
-            tableData: []
+            tableData: [],
+            properties:[],
+            propertyIndex:'',
+            num:-1,
+            maxNumber:10,
+            minNumber:0,
+            propertyTags:[],
+            tagRecords:[]
           }
       },
 
@@ -69,6 +113,26 @@
         handleCurrentChange(cpage) {
           this.curPage = cpage;
         },
+        tagClose(tag) {
+          this.propertyTags.splice(this.propertyTags.indexOf(tag), 1);
+        },
+        onSearchClick() {
+          let tmp = this.tagRecords.indexOf(this.propertyIndex);
+          if(tmp === -1){       //新的的筛选条件
+            this.tagRecords.push(this.propertyIndex);
+          } else {              //已有筛选条件
+            this.propertyTags.splice(this.propertyTags.indexOf(tmp), 1);
+          }
+          this.propertyTags.push({
+            name:this.properties[this.propertyIndex],
+            range: this.minNumber + " ~ " + this.num
+          })
+        }
+      },
+      
+      mounted(){
+        this.properties.push("最大平飞速度", "作战半径","巡航速度","最大起飞重量",
+        "最大速度","巡航高度","最大航程","着陆滑跑距离","起飞滑跑距离","载弹量","续航时间");
       }
     }
 
