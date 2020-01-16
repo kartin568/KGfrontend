@@ -119,7 +119,7 @@
     data () {
       return {
         isList:true,
-        fileCount:100,
+        fileCount:0,
         isUpload:false,
         curPage:1,
         //上传的文件列表
