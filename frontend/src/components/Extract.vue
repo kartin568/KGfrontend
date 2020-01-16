@@ -30,7 +30,7 @@
         </div>
         <!-- 上传窗口-->
         <div id="upload" v-if="isUpload">
-          
+
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>语料上传</span>
@@ -102,7 +102,7 @@
       <el-divider></el-divider>
       <!--中心-->
       <div class="main" id="daddy">
-        <div id="graph" style="width: 100%;height:100%;"></div>
+        <div id="graph" style="width: 1600px;height:800px;"></div>
       </div>
     </el-main>
   </el-container>
@@ -112,6 +112,8 @@
   let echarts = require('echarts');
   let myChart;
   window.onresize = function() {
+    document.getElementById("graph").style.width="100%";
+    document.getElementById("graph").style.height="100%";
     myChart.resize();
   };
 
