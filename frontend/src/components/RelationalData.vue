@@ -154,15 +154,21 @@ import MyPropertyTag from './MyPropertyTag'
           this.curPage = cpage;
         },
         tagClose(tag) {
+          console.log(tag)
+          this.tagRecords.splice(this.tagRecords.indexOf(this.properties.indexOf(tag.name)), 1);
           this.propertyTags.splice(this.propertyTags.indexOf(tag), 1);
         },
         onSearchClick() {
           let tmp = this.tagRecords.indexOf(this.propertyIndex);
+          console.log(tmp);
           if(tmp === -1){       //新的的筛选条件
             this.tagRecords.push(this.propertyIndex);
           } else {              //已有筛选条件
-            this.propertyTags.splice(this.propertyTags.indexOf(tmp), 1);
+            this.tagRecords.splice(tmp, 1);
+            this.propertyTags.splice(tmp, 1);
+            this.tagRecords.push(this.propertyIndex);
           }
+          console.log(this.tagRecords)
           this.propertyTags.push({
             name:this.properties[this.propertyIndex],
             range: this.minNumber + " ~ " + this.num
