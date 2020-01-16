@@ -65,12 +65,52 @@
           border>
           <el-table-column
             prop="title"
-            label="标题">
+            label="名称"
+            fixed>
           </el-table-column>
           <el-table-column
-            prop="date"
-            label="上传时间"
-            width="180">
+            prop="zdpfsd"
+            label="最大平飞速度">
+          </el-table-column>
+          <el-table-column
+            prop="zzbj"
+            label="作战半径">
+          </el-table-column>
+          <el-table-column
+            prop="xhsd"
+            label="巡航速度">
+          </el-table-column>
+          <el-table-column
+            prop="zdqfzl"
+            label="最大起飞重量">
+          </el-table-column>
+          <el-table-column
+            prop="zdsd"
+            label="最大速度">
+          </el-table-column>
+          <el-table-column
+            prop="xhgd"
+            label="巡航高度">
+          </el-table-column>
+          <el-table-column
+            prop="zdhc"
+            label="最大航程">
+          </el-table-column>
+          <el-table-column
+            prop="zlhpjl"
+            label="着陆滑跑距离">
+          </el-table-column>
+          <el-table-column
+            prop="qfhpjl"
+            label="起飞滑跑距离">
+          </el-table-column>
+          <el-table-column
+            prop="zdl"
+            label="载弹量">
+          </el-table-column>
+          <el-table-column
+            prop="xhsj"
+            label="续航时间">
           </el-table-column>
         </el-table>
         <!-- 分页符-->
