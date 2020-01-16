@@ -10,7 +10,7 @@
         <div id="entitiDefinitions">
           <el-row type="flex" align="center">
             <el-col :span="4" class="title">实体定义</el-col>
-            <el-col style="line-height:50px;">
+            <el-col style="line-height:50px;margin-left:10px;">
               <el-input
                 class="input-new-tag"
                 v-if="entityInputVisible"
@@ -37,7 +37,7 @@
         <div id="relationDefinitions">
           <el-row type="flex" align="center">
             <el-col :span="4" class="title">关系定义</el-col>
-            <el-col style="line-height:50px;">
+            <el-col style="line-height:50px;margin-left:10px;">
               <el-input
                 class="input-new-tag longInput"
                 v-if="relationInputVisible"
@@ -198,7 +198,7 @@ import MyEntityTag from './MyEntityTag'
     margin-left: 10px;
   }
   .button-new-tag {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     height: 32px;
     line-height: 30px;
     padding-top: 0;
@@ -226,5 +226,8 @@ import MyEntityTag from './MyEntityTag'
     color: #5775FB;
   }
 
-  
+  #entitiDefinitions,#relationDefinitions{
+    text-align: left;
+  }
+
 </style>
