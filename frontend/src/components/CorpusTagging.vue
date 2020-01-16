@@ -17,13 +17,15 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>语料上传</span>
-              <i class="el-icon-close" style="float: right; padding: 3px 0;" @click="isUpload=false"></i>
+              <i class="el-icon-close" style="float: right; padding: 3px 0;" @click="cancelUpload"></i>
             </div>
             <el-upload
               class="upload-demo"
               drag
+              ref="upload"
+              :auto-upload="false"
+              accept=".txt,.xls,.xlsx,.json"
               action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
               :on-remove="handleRemove"
               :on-change="handleAddFile"
               :file-list="fileList"
@@ -36,7 +38,7 @@
                 Json数据结构为对象数组，对象属性值含有title和text<br>
               </div>
             </el-upload>
-            <el-button size="small" @click="isUpload=false">取消</el-button>
+            <el-button size="small" @click="cancelUpload">取消</el-button>
             <el-button style="margin-left: 10px;" class="darkBtn" size="small" type="primary" @click="submitUpload">上传</el-button>
           </el-card>
         </div>
@@ -91,9 +93,7 @@
         fileCount:0,
         curPage:1,
         //上传的文件列表
-        fileList: [
-          {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'},
-        ],
+        fileList: [],
         //表格数据，文书列表
         tableData: []
       }
@@ -101,14 +101,24 @@
 
 
     methods: {
+      cancelUpload(){
+        this.isUpload=false;
+        this.fileList=[];
+      },
       submitUpload() {
+        let now = new Date();
+        let date =  now.getFullYear() + "-" + ((now.getMonth() + 1) < 10 ? "0" : "") + (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") + now.getDate();
         this.$refs.upload.submit();
+        for(let i=0;i<this.fileList.length;i++) {
+          this.tableData.push({
+            date:  date,
+            title: this.fileList[i].raw.name
+          })
+        }
+        this.fileCount = this.tableData.length;
       },
       handleRemove(file, fileList) {
         this.fileList = fileList;
-      },
-      handlePreview(file) {
-        console.log(file);
       },
       handleAddFile(file,fileList){
         this.fileList = fileList;
@@ -180,7 +190,7 @@
     background-color: #708BF7;
   }
 
-  .blueBtn{ 
+  .blueBtn{
     background-color: #EFF0FF;
     border: 1px solid #5775FB;
     color: #5775FB;

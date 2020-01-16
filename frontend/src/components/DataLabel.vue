@@ -62,6 +62,10 @@
     height: 100%;
   }
 
+  .el-menu-item{
+    width: 200px;
+  }
+
 .is-active {
   background-color: rgba(255,255,255,0.2) !important;
   border-right: 4px solid #5775FB !important;

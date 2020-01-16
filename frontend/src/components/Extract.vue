@@ -33,7 +33,7 @@
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>语料上传</span>
-              <i class="el-icon-close" style="float: right; padding: 3px 0" @click="isUpload=false"></i>
+              <i class="el-icon-close" style="float: right; padding: 3px 0" @click="cancelUpload"></i>
             </div>
             <el-upload
               class="upload-demo"
@@ -135,13 +135,16 @@
         this.fileList=[];
       },
       submitUpload() {
+        let now = new Date();
+        let date =  now.getFullYear() + "-" + ((now.getMonth() + 1) < 10 ? "0" : "") + (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") + now.getDate();
         this.$refs.upload.submit();
         for(let i=0;i<this.fileList.length;i++) {
           this.tableData.push({
-            date:  this.fileList[i].raw.lastModifiedDate.toDateString(),
+            date:  date,
             title: this.fileList[i].raw.name
           })
         }
+        this.fileCount = this.tableData.length;
       },
       handleRemove(file, fileList) {
         this.fileList = fileList;
@@ -317,15 +320,22 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  /****************整体布局*******************/
-  .el-container{
+  html,body,.el-container{
     width: 100%;
     height: 100%;
     margin: 0 auto;
     padding: 0;
+    overflow: hidden;
+  }
+  /****************整体布局*******************/
+
+  body > .el-container {
+    width: 100%;
+    height: 100%;
   }
   .el-aside {
     background-color: #343643;
+    min-height: calc(100% - 60px);
   }
   .el-main {
     background-color: #E9EEF3;
