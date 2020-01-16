@@ -30,6 +30,7 @@
         </div>
         <!-- 上传窗口-->
         <div id="upload" v-if="isUpload">
+          
           <el-card class="box-card">
             <div slot="header" class="clearfix">
               <span>语料上传</span>
