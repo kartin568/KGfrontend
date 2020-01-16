@@ -35,16 +35,16 @@
             label="名称">
           </el-table-column>
           <el-table-column
-            prop="date"
+            prop="tail"
             label="尾实体"
-            width="180">
+            width="500">
           </el-table-column>
           <el-table-column
             label="操作"
             width="170">
             <template slot-scope="scope">
-              <el-button @click="handleClick(scope.row)" class="blueBtn" size="small">修改</el-button>
-              <el-button type="danger" plain size="small">删除</el-button>
+              <el-button @click="handleModify(scope.row)" class="blueBtn" size="small">修改</el-button>
+              <el-button @click="handleDelete(scope.row)" type="danger" plain size="small">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -67,73 +67,48 @@
       return {
         tableData: [
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '横沙岛',
+            title: '两栖装甲旅',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '横沙岛',
+            title: '海岸炮兵旅',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '长兴岛',
+            title: '坦克旅',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '黄沙岛',
+            title: '机械化旅',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '助攻攻击群',
+            title: '助攻攻击群',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '主攻攻击群',
+            title: '主攻攻击群',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '苏门答腊',
+            title: '步兵旅',
           },
           {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-04',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-04',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
-          },
-          {
-            date: '2016-05-03',
-            title: '上海市普陀区金沙江路 1518 弄',
+            tail: '陆战大富翁区',
+            title: '一师',
           },
         ],
         curPage:1,
-        fileCount:1000
+        fileCount:0
       }
     },
     methods: {
-      handlePreview(file) {
-        console.log(file);
+      handleDelete(row) {
+        console.log(row);
+      },
+      handleModify(row) {
+        console.log(row);
       },
       handleCurrentChange(cpage) {
         this.curPage = cpage;
@@ -188,7 +163,7 @@
     border-radius: 4px;
     padding:0 0 20px 0;
   }
-  
+
   .is-active {
     background-color: rgba(255,255,255,0.2) !important;
     border-right: 4px solid #5775FB !important;
