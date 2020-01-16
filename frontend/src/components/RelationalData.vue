@@ -25,27 +25,18 @@
       <!--列表页-->
       <div class="main" >
         <!--标签选择-->
-        <el-row>
-          <el-col :span="5">
-            <span style="color:#606266">请选择要筛选的条件及范围：</span>
-          </el-col>
-          <el-col :span="5">
-            <el-select v-model="propertyIndex" placeholder="请选择属性" size="small">
-              <el-option
-                v-for="(item, index) in properties"
-                :key="index"
-                :label="item"
-                :value="index">
-              </el-option>
-            </el-select>
-          </el-col>
-          <el-col :span="3" :offset="1">
-            <el-input-number v-model="num" :min="minNumber" :max="maxNumber" size="small" label="描述文字"></el-input-number>
-          </el-col>
-          <el-col :span="4" :offset="1">
-            <el-button class="darkBtn" size="small" @click="onSearchClick">筛选</el-button>
-          </el-col>
-        </el-row>
+        <span style="color:#606266">请选择要筛选的条件及范围：</span>
+        <el-select v-model="propertyIndex" placeholder="请选择属性" size="small" style="margin-left:20px;">
+          <el-option
+            v-for="(item, index) in properties"
+            :key="index"
+            :label="item"
+            :value="index">
+          </el-option>
+        </el-select>
+        <el-input-number style="margin-left:20px;" v-model="num" :min="minNumber" :max="maxNumber" size="small" label="描述文字"></el-input-number>
+        <el-button style="margin-left:20px;" class="blueBtn" size="small" @click="onAddClick">添加条件</el-button>
+        <el-button style="margin-left:20px;" class="darkBtn" size="small" @click="onSearchClick">筛选</el-button>
         <!--标签-->
         <div style="margin:20px 0;">
           <span style="color:#606266">筛选条件:</span>
@@ -158,7 +149,7 @@ import MyPropertyTag from './MyPropertyTag'
           this.tagRecords.splice(this.tagRecords.indexOf(this.properties.indexOf(tag.name)), 1);
           this.propertyTags.splice(this.propertyTags.indexOf(tag), 1);
         },
-        onSearchClick() {
+        onAddClick() {
           let tmp = this.tagRecords.indexOf(this.propertyIndex);
           console.log(tmp);
           if(tmp === -1){       //新的的筛选条件
@@ -173,6 +164,9 @@ import MyPropertyTag from './MyPropertyTag'
             name:this.properties[this.propertyIndex],
             range: this.minNumber + " ~ " + this.num
           })
+        },
+        onSearchClick(){
+          console.log(1)
         }
       },
       
@@ -264,7 +258,7 @@ import MyPropertyTag from './MyPropertyTag'
     color: #5775FB;
   }
 
-  .blueBtn:hover,.blueBtn:active, .blueBtn:focus{
+  .blueBtn:hover,.blueBtn:active{
     background-color: #5775FB;
     color: #FFFFFF;
   }

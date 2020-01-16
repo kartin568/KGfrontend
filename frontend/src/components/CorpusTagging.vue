@@ -196,7 +196,7 @@
     color: #5775FB;
   }
 
-  .blueBtn:hover,.blueBtn:active, .blueBtn:focus{
+  .blueBtn:hover,.blueBtn:active{
     background-color: #5775FB;
     color: #FFFFFF;
   }
