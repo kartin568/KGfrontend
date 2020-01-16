@@ -5,6 +5,7 @@ import Extract from "../components/Extract";
 import Correct from "../components/Correct";
 import DefineLabel from "../components/DefineLabel";
 import CorpusTagging from "../components/CorpusTagging";
+import RelationalData from "../components/RelationalData";
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/correct',
       name: 'Correct',
       component: Correct
+    },
+    {
+      path: '/relationaldata',
+      name: 'RelationalData',
+      component: RelationalData
     },
   ]
 })
