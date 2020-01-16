@@ -38,8 +38,10 @@
             <el-upload
               class="upload-demo"
               drag
+              ref="upload"
+              :auto-upload="false"
+              accept=".txt,.xls,.xlsx,.json"
               action="https://jsonplaceholder.typicode.com/posts/"
-              :on-preview="handlePreview"
               :on-remove="handleRemove"
               :on-change="handleAddFile"
               :file-list="fileList"
@@ -52,7 +54,7 @@
                 Json数据结构为对象数组，对象属性值含有title和text<br>
               </div>
             </el-upload>
-            <el-button size="small" @click="isUpload=false">取消</el-button>
+            <el-button size="small" @click="cancelUpload">取消</el-button>
             <el-button style="margin-left: 10px;" class="darkBtn" size="small" type="primary" @click="submitUpload">上传</el-button>
           </el-card>
         </div>
@@ -107,7 +109,7 @@
 
 <script>
   let echarts = require('echarts');
-  let myChart
+  let myChart;
   window.onresize = function() {
     myChart.resize();
   };
@@ -121,25 +123,32 @@
         isUpload:false,
         curPage:1,
         //上传的文件列表
-        fileList: [
-          {name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'},
-        ],
+        fileList: [],
         //表格数据，文书列表
         tableData: []
       }
     },
 
     methods: {
+      cancelUpload(){
+        this.isUpload=false;
+        this.fileList=[];
+      },
       submitUpload() {
         this.$refs.upload.submit();
+        for(let i=0;i<this.fileList.length;i++) {
+          this.tableData.push({
+            date:  this.fileList[i].raw.lastModifiedDate.toDateString(),
+            title: this.fileList[i].raw.name
+          })
+        }
       },
       handleRemove(file, fileList) {
         this.fileList = fileList;
       },
-      handlePreview(file) {
-        console.log(file);
-      },
       handleAddFile(file,fileList){
+        console.log(file);
+        console.log(fileList);
         this.fileList = fileList;
       },
       handleCurrentChange(cpage) {
@@ -295,7 +304,7 @@
 
 
     mounted() {
-      for(let i = 0; i < 19; i ++){
+      for(let i = 0; i < 9; i ++){
         this.tableData.push({
           date: '2016-05-03',
           title: '文书'+i
