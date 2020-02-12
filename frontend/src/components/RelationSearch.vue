@@ -29,8 +29,17 @@
       <!--列表页-->
       <div class="main" >
         <!--搜索栏-->
-        <el-input v-model="inputEntity" placeholder="请输入实体名称"></el-input>
-        <el-button style="margin-left:20px;" class="darkBtn" size="small" @click="onSearchClick">搜索</el-button>
+        <el-input v-model="inputEntity1" placeholder="实体1"></el-input>
+        <el-select v-model="inputRelation" filterable placeholder="关系">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-input v-model="inputEntity2" placeholder="实体2"></el-input>
+        <el-button style="margin-left:20px;height: 40px" class="darkBtn" size="small" @click="onSearchClick">搜索</el-button>
 
         <div class="result" v-if="searchDone">
           <!--关系图谱-->
@@ -81,7 +90,25 @@
           //表格数据
           tableData: [],
           searchDone:false,
-          inputEntity:'',
+          inputEntity1:'',
+          inputEntity2:'',
+          options: [{
+            value: '选项1',
+            label: '选项1'
+          }, {
+            value: '选项2',
+            label: '选项2'
+          }, {
+            value: '选项3',
+            label: '选项3'
+          }, {
+            value: '选项4',
+            label: '选项4'
+          }, {
+            value: '选项5',
+            label: '选项5'
+          }],
+          inputRelation:'',
         }
       },
 
@@ -147,7 +174,6 @@
   /*搜索栏*/
   .el-input{
     width: 400px;
-    height: 32px;
   }
 
   /*关系图*/
@@ -179,7 +205,8 @@
     right: 60px;
     height: 10%;
     text-align: right;
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 
   .el-pagination.is-background .el-pager li:not(.disabled).active{

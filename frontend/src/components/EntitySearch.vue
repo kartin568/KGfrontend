@@ -30,7 +30,7 @@
       <div class="main" >
         <!--搜索栏-->
         <el-input v-model="inputEntity" placeholder="请输入实体名称"></el-input>
-        <el-button style="margin-left:20px;" class="darkBtn" size="small" @click="onSearchClick">搜索</el-button>
+        <el-button style="margin-left:20px; height: 40px" class="darkBtn" size="small" @click="onSearchClick">搜索</el-button>
 
         <div class="result" v-if="searchDone">
           <!--关系图谱-->
@@ -155,7 +155,6 @@
   /*搜索栏*/
   .el-input{
     width: 400px;
-    height: 32px;
   }
 
   /*关系图*/
@@ -187,7 +186,8 @@
     right: 60px;
     height: 10%;
     text-align: right;
-    margin-top: 40px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
 
   .el-pagination.is-background .el-pager li:not(.disabled).active{
