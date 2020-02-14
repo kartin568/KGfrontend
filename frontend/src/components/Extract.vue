@@ -3,14 +3,23 @@
     <!-- 左侧导航栏-->
     <el-aside width="200px">
       <el-menu
-        default-active="1"
+        default-active=""
         class="el-menu-vertical-demo"
         background-color="#343643"
         text-color="#fff"
-        active-text-color="#fff">
-        <el-menu-item index="1">
+        active-text-color="#fff"
+        :router="true">
+        <el-menu-item index="/extract" class="is-active">
           <i class="el-icon-menu"></i>
-          <span slot="title">知识抽取</span>
+          <span slot="title">文本抽取</span>
+        </el-menu-item>
+        <el-menu-item index="/extractPic">
+          <i class="el-icon-menu"></i>
+          <span slot="title" >图片抽取</span>
+        </el-menu-item>
+        <el-menu-item index="/extractVedio">
+          <i class="el-icon-document"></i>
+          <span slot="title">视频抽取</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -138,6 +147,7 @@
         this.fileList=[];
       },
       submitUpload() {
+        this.fileCount = this.tableData.length;
         let now = new Date();
         let date =  now.getFullYear() + "-" + ((now.getMonth() + 1) < 10 ? "0" : "") + (now.getMonth() + 1) + "-" + (now.getDate() < 10 ? "0" : "") + now.getDate();
         this.$refs.upload.submit();

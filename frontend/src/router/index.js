@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import DataLabel from "../components/DataLabel";
 import Extract from "../components/Extract";
+import ExtractPic from "../components/ExtractPic";
+import ExtractVedio from "../components/ExtractVedio"
 import Correct from "../components/Correct";
 import DefineLabel from "../components/DefineLabel";
 import CorpusTagging from "../components/CorpusTagging";
@@ -34,6 +36,16 @@ export default new Router({
       path: '/extract',
       name: 'Extract',
       component: Extract
+    },
+    {
+      path: '/extractPic',
+      name: 'ExtractPic',
+      component: ExtractPic
+    },
+    {
+      path: '/extractVedio',
+      name: 'ExtractVedio',
+      component: ExtractVedio
     },
     {
       path: '/correct',
