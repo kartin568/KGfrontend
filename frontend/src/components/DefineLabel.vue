@@ -2,6 +2,8 @@
   <el-container>
     <!--内容块 模式定义-->
     <el-main>
+      <el-button @click="testapishow">testshowBtn</el-button>
+      <el-button @click="testapiadd">testaddBtn</el-button>
       <div class="header">
         模式定义
       </div>
@@ -99,6 +101,24 @@ import MyEntityTag from './MyEntityTag'
       }
     },
     methods: {
+      testapishow(){
+        this.$http.get('http://127.0.0.1:8000/api/show_books')
+
+        .then((response) => {
+
+          console.log(response)
+
+        })
+      },
+      testapiadd(){
+this.$http.get('http://127.0.0.1:8000/api/add_book?book_name=' + 'testbook2')
+
+        .then((response) => {
+
+          console.log(response)
+
+        })
+      },
       entityClose(tag) {
         this.entityTags.splice(this.entityTags.indexOf(tag), 1);
       },
