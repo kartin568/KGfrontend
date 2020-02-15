@@ -79,7 +79,7 @@
           </el-tab-pane>
           <el-tab-pane label="图谱展示" name="second">
             <div v-if="!flag">请先上传文件分析</div>
-            <div v-else>
+            <div v-show="flag" id="daddy">
               <div>
                 请选择要查看的图片：
                 <el-select v-model="optIndex" size="small">
@@ -104,7 +104,11 @@
 <script>
   let echarts = require('echarts');
   let myChart;
-
+  window.onresize = function() {
+    document.getElementById("graph").style.width="100%";
+    document.getElementById("graph").style.height="100%";
+    myChart.resize();
+  };
   export default {
     name: 'ExtractPic',
     data () {
@@ -373,6 +377,11 @@
     color: #5775FB !important;
   }
 
+  #daddy{
+    width:100%;
+    height: 100%;
+  }
+
   /***************上传弹窗***********/
   #upload{
     text-align: center;
@@ -438,7 +447,7 @@
   .el-carousel__container, .el-tabs__content, .el-tabs, .el-tab-pane{
     height: 100% !important;
   }
-  
+
   /*tab样式*/
   .el-tabs__active-bar{
     background-color:#708BF7 !important;
