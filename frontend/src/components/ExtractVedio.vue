@@ -60,38 +60,61 @@
       </div>
       <el-divider></el-divider>
       <!--中心-->
-      <div class="main" >
-        <div class="header">
-          抽取结果
-        </div>
-        <!--图片展示-->
-        <div class="picContainer">
-            <el-carousel trigger="click" style="height:100%;" :autoplay="false">
-                <el-carousel-item v-for="item in vedioList" :key="item" style="height:100%;">
-                    <!--<embed :src="item"-->
-                      <!--class="vedioStyle"-->
-                      <!--type="application/x-shockwave-flash" />-->
-                  <video :src="item" controls="controls">
-                  </video>
-                </el-carousel-item>
-            </el-carousel>
-        </div>
+      <div class="main">
+         <el-tabs style="margin:0 15px;">
+          <el-tab-pane label="抽取结果" name="first">
+            <!--视频展示-->
+            <div v-if="!flag">请先上传文件分析</div>
+            <div class="picContainer" v-else>
+                <el-carousel trigger="click" style="height:100%;" :autoplay="false">
+                    <el-carousel-item v-for="item in vedioList" :key="item" style="height:100%;">
+                        <!--<embed :src="item"-->
+                          <!--class="vedioStyle"-->
+                          <!--type="application/x-shockwave-flash" />-->
+                      <video :src="item" controls="controls" style="width:100%;">
+                      </video>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+          </el-tab-pane>
+          <el-tab-pane label="图谱展示" name="second">
+            <div v-if="!flag">请先上传文件分析</div>
+            <div v-else>
+              <div>
+                请选择要查看的图片：
+                <el-select v-model="optIndex" size="small">
+                  <el-option
+                    v-for="(item, index) in optList"
+                    :key="index"
+                    :label="item"
+                    :value="index">
+                  </el-option>
+                </el-select>
+                <el-button @click="onSelect" class="blueBtn" size="small">确定</el-button>
+              </div>
+              <div id="graph" style="width:1000px; height:750px;"></div>
+            </div>
+          </el-tab-pane>
+        </el-tabs>
       </div>
     </el-main>
   </el-container>
 </template>
 
 <script>
+  let echarts = require('echarts');
+  let myChart;
 
   export default {
     name: 'ExtractPic',
     data () {
       return {
-        vedioList: [
-          "https://vdept.bdstatic.com/766c61556a637862494d525073497967/7168786b72575243/2fdfac5ac676dae096ae25bc9c5174f9e3e80c313b38d89c35da8272a09144ca64f32cf743c8a7c74223a4e449954793.mp4?auth_key=1581744001-0-0-72974359bb3fe4e6c0416d25ee7e6b0a"
-        ],
+        vedioList: [],
         isUpload:false,
-        uploadList:[]
+        uploadList:[],
+        optList:[],
+        flag:false,
+        optIndex:''
       }
     },
 
@@ -105,8 +128,16 @@
       },
       submitUpload() {
         //上传
-        this.$refs.upload.submit();
+        // this.$refs.upload.submit();
+        this.optList = [];
+        for(let i = 0; i < this.uploadList.length; i ++){
+          this.optList.push(this.uploadList[i].name)
+        }
         //分析
+        this.vedioList=[];
+        this.vedioList.push("https://vdept.bdstatic.com/766c61556a637862494d525073497967/7168786b72575243/2fdfac5ac676dae096ae25bc9c5174f9e3e80c313b38d89c35da8272a09144ca64f32cf743c8a7c74223a4e449954793.mp4?auth_key=1581744001-0-0-72974359bb3fe4e6c0416d25ee7e6b0a");
+        this.flag = true;
+        this.isUpload = false;
       },
       handleRemove(file, fileList) {
         this.uploadList = fileList;
@@ -115,12 +146,150 @@
         console.log(file);
         console.log(fileList);
         this.uploadList = fileList;
+      },
+      onSelect() {
+        //加载echarts
+        console.log(this.optIndex);
+        let categories=[
+          {name:'属性A'},
+          {name:'属性B'},
+        ];
+        let option ={
+          // 图的标题
+          title: {
+            text: 'test'
+          },
+          // 提示框的配置
+          tooltip: {
+            formatter: function (x) {
+              return x.data.des;
+            }
+          },
+          // 工具箱
+          toolbox: {
+            // 显示工具箱
+            show: true,
+            feature: {
+              mark: {
+                show: true
+              },
+              // 还原
+              restore: {
+                show: true
+              },
+              // 保存为图片
+              saveAsImage: {
+                show: true
+              }
+            }
+          },
+          legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+              return a.name;
+            })
+          }],
+          series: [{
+            type: 'graph', // 类型:关系图
+            layout: 'force', //图的布局，类型为力导图
+            symbolSize: 40, // 调整节点的大小
+            roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [2, 10],
+            edgeLabel: {
+              normal: {
+                textStyle: {
+                  fontSize: 20
+                }
+              }
+            },
+            force: {
+              repulsion: 2500,
+              edgeLength: [10, 50]
+            },
+            draggable: true,
+            lineStyle: {
+              normal: {
+                width: 2,
+                color: '#4b565b',
+              }
+            },
+            edgeLabel: {
+              normal: {
+                show: true,
+                formatter: function (x) {
+                  return x.data.name;
+                }
+              }
+            },
+            label: {
+              normal: {
+                show: true,
+                textStyle: {}
+              }
+            },
+            // 数据
+            data: [{
+              name: 'node01',
+              des: 'nodedes01',
+              symbolSize: 70,
+              category: 0,
+            }, {
+              name: 'node02',
+              des: 'nodedes02',
+              symbolSize: 50,
+              category: 1,
+            }, {
+              name: 'node03',
+              des: 'nodedes3',
+              symbolSize: 50,
+              category: 1,
+            }, {
+              name: 'node04',
+              des: 'nodedes04',
+              symbolSize: 50,
+              category: 1,
+            }, {
+              name: 'node05',
+              des: 'nodedes05',
+              symbolSize: 50,
+              category: 1,
+            }],
+            links: [{
+              source: 'node01',
+              target: 'node02',
+              name: 'link01',
+              des: 'link01des'
+            }, {
+              source: 'node01',
+              target: 'node03',
+              name: 'link02',
+              des: 'link02des'
+            }, {
+              source: 'node01',
+              target: 'node04',
+              name: 'link03',
+              des: 'link03des'
+            }, {
+              source: 'node01',
+              target: 'node05',
+              name: 'link04',
+              des: 'link05des'
+            }],
+            categories: categories,
+          }],
+          grid:{
+            top:"10px",
+            bottom:"10px",
+            height:"10px",
+            width:"10px"
+          }
+        }
+
+        myChart= echarts.init(document.getElementById('graph'));
+        // 绘制图表
+        myChart.setOption(option);
       }
-    },
-
-
-    mounted() {
-
     }
   }
 </script>
@@ -262,5 +431,19 @@
 
   .el-carousel__item{
       text-align: center;
+  }
+</style>
+
+<style>
+  .el-carousel__container, .el-tabs__content, .el-tabs, .el-tab-pane{
+    height: 100% !important;
+  }
+  
+  /*tab样式*/
+  .el-tabs__active-bar{
+    background-color:#708BF7 !important;
+  }
+  .el-tabs__item.is-active, .el-tabs__item:hover{
+    color: #708BF7;
   }
 </style>
