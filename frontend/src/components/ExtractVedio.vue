@@ -62,15 +62,17 @@
       <!--中心-->
       <div class="main" >
         <div class="header">
-          抽取结果-----.swf文件？？
+          抽取结果
         </div>
         <!--图片展示-->
         <div class="picContainer">
             <el-carousel trigger="click" style="height:100%;" :autoplay="false">
                 <el-carousel-item v-for="item in vedioList" :key="item" style="height:100%;">
-                    <embed :src="item" 
-                      class="vedioStyle" 
-                      type="application/x-shockwave-flash" />
+                    <!--<embed :src="item"-->
+                      <!--class="vedioStyle"-->
+                      <!--type="application/x-shockwave-flash" />-->
+                  <video :src="item" controls="controls">
+                  </video>
                 </el-carousel-item>
             </el-carousel>
         </div>
@@ -86,7 +88,7 @@
     data () {
       return {
         vedioList: [
-          'http://player.youku.com/player.php/sid/XMzI2NTc4NTMy/v.swf'
+          "https://vdept.bdstatic.com/766c61556a637862494d525073497967/7168786b72575243/2fdfac5ac676dae096ae25bc9c5174f9e3e80c313b38d89c35da8272a09144ca64f32cf743c8a7c74223a4e449954793.mp4?auth_key=1581744001-0-0-72974359bb3fe4e6c0416d25ee7e6b0a"
         ],
         isUpload:false,
         uploadList:[]
@@ -118,7 +120,7 @@
 
 
     mounted() {
-      
+
     }
   }
 </script>

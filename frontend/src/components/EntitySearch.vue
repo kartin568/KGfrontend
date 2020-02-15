@@ -22,7 +22,7 @@
     <el-main>
       <!--顶部-->
       <div class="header">
-        
+        实体检索
       </div>
       <el-divider></el-divider>
       <!--中心-->
