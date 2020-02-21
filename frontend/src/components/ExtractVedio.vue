@@ -131,7 +131,27 @@
         this.uploadList=[];
       },
       submitUpload() {
-        //上传
+        //上传的请求
+        this.$http.get(
+          'http://127.0.0.1:8000/api/show_books'
+          ).then((res) => {
+            //成功 发起分析的请求
+            this.$http.post(
+            'http://127.0.0.1:8000/api/add_book',//url
+            {                                     //参数
+              book_name:'TEST'                  
+            }                                     //此项后可加一些配置参数  
+            ).then((res) => {
+              console.log(res)
+            }).catch((res) => {
+              //请求失败
+
+            })
+        }).catch((res) => {
+          //请求失败
+          
+        })
+        
         // this.$refs.upload.submit();
         this.optList = [];
         for(let i = 0; i < this.uploadList.length; i ++){

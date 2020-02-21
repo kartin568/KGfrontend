@@ -131,13 +131,33 @@
         this.uploadList=[];
       },
       submitUpload() {
-        //上传
+        //上传的请求
+        this.$http.get(
+          'http://127.0.0.1:8000/api/show_books'
+          ).then((res) => {
+            //成功 发起分析的请求
+            this.$http.post(
+            'http://127.0.0.1:8000/api/add_book',//url
+            {                                     //参数
+              book_name:'TEST'                  
+            }                                     //此项后可加一些配置参数  
+            ).then((res) => {
+              console.log(res)
+            }).catch((res) => {
+              //请求失败
+
+            })
+        }).catch((res) => {
+          //请求失败
+
+        })
+        
         // this.$refs.upload.submit();
         this.optList = [];
         for(let i = 0; i < this.uploadList.length; i ++){
           this.optList.push(this.uploadList[i].name)
         }
-        //分析
+        //分析结果
         this.picList=[];
         this.picList.push('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg');
         this.picList.push('https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg');
