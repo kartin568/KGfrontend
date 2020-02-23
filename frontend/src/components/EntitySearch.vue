@@ -92,6 +92,25 @@
         },
         onSearchClick(){
           this.searchDone=true;
+
+          this.$http.get('http://127.0.0.1:8000/search_entity?user_text='+this.inputEntity).then((res) => {
+            console.log(res.data.entityRelation) ;
+            this.tableData = [];
+            for(let i=0;i<res.data.entityRelation.length;i++)
+            {
+              let tmp={};
+              tmp.entity1=this.inputEntity;
+              tmp.relationship=res.data.entityRelation[i].rel.type;
+              tmp.entity2=res.data.entityRelation[i].entity2.title;
+              this.tableData.push(tmp);
+            }
+            console.log(this.tableData);
+            //data.entityRelation[1].rel
+            //array  data.entityRelation[1].entity2
+          }).catch((res)=>{
+            console.log("fail")
+            console.log(res);
+          })
         }
       },
     }
