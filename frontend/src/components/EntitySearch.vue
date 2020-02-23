@@ -36,6 +36,7 @@
           <!--关系图谱-->
           <div id="kgPic">
             <div class="title">关系图谱</div>
+            <div id="graph" style="width: 1200px;height:300px;"></div>
           </div>
           <!--三元组列表-->
           <el-table
@@ -72,6 +73,15 @@
 </template>
 
 <script>
+
+  let echarts = require('echarts');
+  let myChart;
+  window.onresize = function() {
+    document.getElementById("graph").style.width="100%";
+    document.getElementById("graph").style.height="100%";
+    myChart.resize();
+  };
+
     export default {
         name: "KnowledgeSearch",
       data(){
@@ -96,17 +106,113 @@
           this.$http.get('http://127.0.0.1:8000/search_entity?user_text='+this.inputEntity).then((res) => {
             console.log(res.data.entityRelation) ;
             this.tableData = [];
+            let graphPoint=[{name:this.inputEntity,category:0}];
+            let graphLink=[];
             for(let i=0;i<res.data.entityRelation.length;i++)
             {
               let tmp={};
+              let tmpLink={};
               tmp.entity1=this.inputEntity;
               tmp.relationship=res.data.entityRelation[i].rel.type;
               tmp.entity2=res.data.entityRelation[i].entity2.title;
+              tmpLink.source=this.inputEntity;
+              tmpLink.target=tmp.entity2;
+              tmpLink.name=tmp.relationship;
+              tmpLink.des=this.inputEntity+"->"+tmp.entity2;
               this.tableData.push(tmp);
+              graphLink.push(tmpLink);
+              graphPoint.push({name:tmp.entity2,category:1,des:tmp.entity2});
             }
-            console.log(this.tableData);
-            //data.entityRelation[1].rel
-            //array  data.entityRelation[1].entity2
+
+            let categories=[
+              {name:'entity1'},
+              {name:'entity2'},
+            ];
+            let option ={
+              // 提示框的配置
+              tooltip: {
+                formatter: function (x) {
+                  return x.data.des;
+                }
+              },
+              // 工具箱
+              toolbox: {
+                // 显示工具箱
+                show: true,
+                feature: {
+                  mark: {
+                    show: true
+                  },
+                  // 还原
+                  restore: {
+                    show: true
+                  },
+                  // 保存为图片
+                  saveAsImage: {
+                    show: true
+                  }
+                }
+              },
+              legend: [{
+                // selectedMode: 'single',
+                data: categories.map(function (a) {
+                  return a.name;
+                })
+              }],
+              series: [{
+                type: 'graph', // 类型:关系图
+                layout: 'force', //图的布局，类型为力导图
+                symbolSize: 40, // 调整节点的大小
+                roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+                edgeSymbol: ['circle', 'arrow'],
+                edgeSymbolSize: [2, 10],
+                edgeLabel: {
+                  normal: {
+                    textStyle: {
+                      fontSize: 20
+                    }
+                  }
+                },
+                force: {
+                  repulsion: 2500,
+                  edgeLength: [10, 50]
+                },
+                draggable: true,
+                lineStyle: {
+                  normal: {
+                    width: 2,
+                    color: '#4b565b',
+                  }
+                },
+                edgeLabel: {
+                  normal: {
+                    show: true,
+                    formatter: function (x) {
+                      return x.data.name;
+                    }
+                  }
+                },
+                label: {
+                  normal: {
+                    show: true,
+                    textStyle: {}
+                  }
+                },
+                // 数据
+                data:graphPoint,
+                links:graphLink,
+                categories: categories,
+              }],
+              grid:{
+                top:"10px",
+                bottom:"10px",
+                height:"10px",
+                width:"10px"
+              }
+            };
+            myChart= echarts.init(document.getElementById('graph'));
+            // 绘制图表
+            myChart.setOption(option);
           }).catch((res)=>{
             console.log("fail")
             console.log(res);
@@ -178,7 +284,7 @@
 
   /*关系图*/
   #kgPic{
-    height: 200px;
+    height: 400px;
     width: 100%;
     margin-top: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
